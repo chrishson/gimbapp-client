@@ -36,12 +36,12 @@ export default class Flashcard extends React.Component {
         headers: {
           'Content-Type': 'application/json'
         },
-      })
+      });
 
       this.state.vocabDB = await response.json();
 
       this.newQuestion();
-    }
+    };
 
     private getRandomInt = (max: number): number => {
         return Math.floor(Math.random() * Math.floor(max));
@@ -84,6 +84,10 @@ export default class Flashcard extends React.Component {
         this.setState({"hintCount": this.state.hintCount + 1});
     };
 
+    private revealAnswer = (): void => {
+        this.setState({"hintCount": this.state.answerWord.length});
+    };
+
     render() {
 
         return this.state.vocabDB.length > 0 && (
@@ -94,6 +98,9 @@ export default class Flashcard extends React.Component {
                 </button>
                 <button onClick={this.giveHint}>
                     Show me a letter!
+                </button>
+                <button onClick={this.revealAnswer}>
+                    Reveal All!
                 </button>
                 <p>{this.showHintOrAnswer()}</p>
             </div>
